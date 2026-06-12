@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -81,6 +82,28 @@ public class AdminServiceImplementation implements AdminServiceInterface{
                 .orElseThrow(()->new RuntimeException("Admin with that number does not exist! Check and try again! "));
 
         return toDto(admin);
+    }
+
+    //this method removes admin profile
+    @Override
+    public String deleteAdminProfile(String employeeNumber) {
+        Admin admin =adminRepository.findByEmployeeNumber(employeeNumber)
+                .orElseThrow(()->new RuntimeException("Admin with that number does not exist! "));
+        adminRepository.delete(admin);
+        return admin.getFirstName()+ admin.getLastName()+" deleted successfully";
+    }
+
+    //this method update admin profile
+    @Override
+    public AdminResponse updateAdminProfile(String employeeNumber, AdminRequest adminRequest) {
+        Admin admin =adminRepository.findByEmployeeNumber(employeeNumber)
+                .orElseThrow(()->new RuntimeException("Admin with that number does not exist! "));
+
+        if (Objects.nonNull(admin.getFirstName())&& !admin.getFirstName().isEmpty()) {
+            admin.setFirstName(adminRequest.getFirstName());
+        }
+
+        return null;
     }
 
     // convert admin request  to user (admin login credential stored in user table. user & admin have oneToOne relationship)

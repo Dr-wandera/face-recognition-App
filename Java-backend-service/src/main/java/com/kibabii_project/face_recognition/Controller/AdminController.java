@@ -1,6 +1,6 @@
 package com.kibabii_project.face_recognition.Controller;
 
-import com.kibabii_project.face_recognition.Dto.*;
+import com.kibabii_project.face_recognition.Dto.*;import com.kibabii_project.face_recognition.Model.Admin;
 import com.kibabii_project.face_recognition.service.AdminServiceImplementation;
 import com.kibabii_project.face_recognition.service.StudentServiceImplementation;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,19 @@ public class AdminController {
     public AdminResponse getAdminByEmployeeNumber(@PathVariable String employeeNumber){
         return adminServiceImplementation.getAdminByEmployeeNumber(employeeNumber);
     }
+
+    @DeleteMapping("/delete/admin/{employeeNumber}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteAdminProfile(@PathVariable String employeeNumber){
+        return adminServiceImplementation.deleteAdminProfile(employeeNumber);
+    }
+
+    @PutMapping("/update/admin/{employeeNumber}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public AdminResponse updateAdminProfile(@PathVariable String employeeNumber, @RequestBody AdminRequest adminRequest){
+        return adminServiceImplementation.updateAdminProfile(employeeNumber,adminRequest);
+    }
+
     @PostMapping("/create/student")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String registerStudent(@RequestBody StudentRequest studentRequest){

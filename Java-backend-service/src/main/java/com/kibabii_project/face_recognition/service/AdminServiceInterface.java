@@ -11,4 +11,8 @@ public interface AdminServiceInterface {
     List<AdminResponse> allAdmin(int page, int size);
 
     AdminResponse getAdminByEmployeeNumber(String employeeNumber);
+
+    String deleteAdminProfile(String employeeNumber);
+
+    AdminResponse updateAdminProfile(String employeeNumber, AdminRequest adminRequest);
 }
