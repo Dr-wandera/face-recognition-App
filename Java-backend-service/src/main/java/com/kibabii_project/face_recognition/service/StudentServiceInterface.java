@@ -2,6 +2,7 @@ package com.kibabii_project.face_recognition.service;
 
 import com.kibabii_project.face_recognition.Dto.StudentRequest;
 import com.kibabii_project.face_recognition.Dto.StudentResponse;
+import com.kibabii_project.face_recognition.Dto.VerificationResponse;
 import com.kibabii_project.face_recognition.Dto.VerifyRequest;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface StudentServiceInterface {
     String registerStudent(StudentRequest studentRequest);
 
-    String verifyStudent(VerifyRequest verifyRequest);
+    VerificationResponse verifyStudent(VerifyRequest verifyRequest);
 
     StudentResponse updateStudentProfile(String regNumber, StudentRequest studentRequest);
 

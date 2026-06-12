@@ -2,6 +2,7 @@ package com.kibabii_project.face_recognition.service;
 
 import com.kibabii_project.face_recognition.Dto.StudentRequest;
 import com.kibabii_project.face_recognition.Dto.StudentResponse;
+import com.kibabii_project.face_recognition.Dto.VerificationResponse;
 import com.kibabii_project.face_recognition.Dto.VerifyRequest;
 import com.kibabii_project.face_recognition.Model.Students;
 import com.kibabii_project.face_recognition.Repository.StudentRepository;
@@ -63,7 +64,7 @@ public class StudentServiceImplementation implements StudentServiceInterface{
 
     //verify student face image
     @Override
-    public String verifyStudent(VerifyRequest verifyRequest) {
+    public VerificationResponse verifyStudent(VerifyRequest verifyRequest) {
 
         // Validate input
         if (verifyRequest.getImage() == null || verifyRequest.getImage().isEmpty()) {
@@ -94,14 +95,22 @@ public class StudentServiceImplementation implements StudentServiceInterface{
             throw new RuntimeException("Face verification service failed: " + e.getMessage());
         }
 
-        // Validate response
+        System.out.println("Python response: " + response);
+
+// Validate response
         if (response == null || !response.containsKey("match")) {
             throw new RuntimeException("Invalid response from face verification service");
         }
 
-        boolean isMatch = (boolean) response.get("match");
+        boolean isMatch = Boolean.TRUE.equals(response.get("match"));
 
-        return isMatch ? "Eligible to sit for exam" : "Not eligible to sit for exam.Not registered for exam";
+        return new VerificationResponse(
+                isMatch,
+                isMatch
+                        ? "Eligible to sit for exam"
+                        : "Not eligible to sit for exam"
+        );
+
     }
 
     @Override
