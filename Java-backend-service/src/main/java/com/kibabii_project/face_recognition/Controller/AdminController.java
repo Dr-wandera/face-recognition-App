@@ -39,7 +39,7 @@ public class AdminController {
     }
     @PostMapping("/verify/student")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public String verifyStudent(@RequestBody VerifyRequest verifyRequest){
+    public VerificationResponse verifyStudent(@RequestBody VerifyRequest verifyRequest){
         return studentServiceImplementation.verifyStudent(verifyRequest);
     }
     @PutMapping("/update/{regNumber}")
